@@ -18,20 +18,13 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="dont_have_account_register">Don&apos;t have an account? Register</string>
 
-    <!-- Dash -->
+    <!-- Renter Dash -->
     <string name="profile_icon">Profile Icon</string>
     <string name="search_icon">Search Icon</string>
     <string name="hi_user">Hi, [First Name]!</string>
-    <string name="renter_message">Let&apos;s find your next great deal!</string>
+    <string name="hi_message">Let&apos;s find your next great deal!</string>
     <string name="card_icon">Card Icon</string>
     <string name="home">Home Icon</string>
     <string name="notifications">Notifications Icon</string>
     <string name="settings">Settings Icon</string>
-    <string name="lessor_message">Earn effortlessly, share with ease!</string>
-    <string name="admin_dashboard">Admin Dashboard</string>
-    <string name="logout">Logout</string>
-    <string name="user_management">Users</string>
-    <string name="category_management">Categories</string>
-    <string name="content_moderation">Moderation</string>
-    <string name="analytics">Analytics</string>
 </resources>

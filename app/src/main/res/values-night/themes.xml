@@ -1,7 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.RentifyApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+    <!-- Base application theme using Material Components -->
+    <style name="Theme.RentifyApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/light_blue_500</item>
+        <item name="colorPrimaryVariant">@color/light_blue_700</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+
+        <!-- Background and Surface Colors -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">@color/on_background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+
+        <!-- Error Color -->
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/on_error</item>
+
+        <!-- Typography -->
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="fontFamily">@font/roboto</item>
+
+        <!-- Define Text Appearances -->
+        <item name="textAppearanceHeadline5">@style/TextAppearance.RentifyApp.Headline5</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.RentifyApp.Body1</item>
+        <item name="textAppearanceButton">@style/TextAppearance.RentifyApp.Button</item>
+        <item name="textAppearanceLabel">@style/TextAppearance.RentifyApp.Label</item>
+
+        <!-- Shape Appearance -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.RentifyApp.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.RentifyApp.MediumComponent</item>
+
+        <!-- Button Styles -->
+        <item name="buttonStyle">@style/Widget.RentifyApp.Button</item>
+        <!-- Remove buttonStyleSecondary or handle it differently -->
     </style>
+
 </resources>

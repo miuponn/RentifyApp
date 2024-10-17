@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Gradient background -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="#B3E5FC"
+                android:endColor="#E0F2F1"
+                android:angle="160"/>
+        </shape>
+    </item>
+
+    <!-- White swirl at the bottom -->
+    <item>
+        <vector
+            android:width="360dp"
+            android:height="640dp"
+            android:viewportWidth="360"
+            android:viewportHeight="640">
+            <path
+                android:pathData="M0,600 C100,300 400,700 680,580 L360,640 L2,800 Z"
+                android:fillColor="#FFFFFF"/>
+        </vector>
+    </item>
+</layer-list>

@@ -57,3 +57,7 @@ google-services.json
 *.aab
 *.swp
 *~
+
+#firebase privatw key
+/app/private/firebase-adminsdk-*.json
+

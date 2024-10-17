@@ -1,0 +1,17 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background Circle -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FF8A65" /> <!-- Green color -->
+        </shape>
+    </item>
+
+    <!-- Icon -->
+    <item
+        android:drawable="@drawable/ic_category"
+        android:gravity="center"
+        android:top="8dp"
+        android:bottom="8dp"
+        android:left="8dp"
+        android:right="8dp" />
+</layer-list>
