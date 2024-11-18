@@ -1,0 +1,94 @@
+<!-- res/layout/item_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Item Name -->
+    <TextView
+        android:id="@+id/tvItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item Name"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Item Description -->
+    <TextView
+        android:id="@+id/tvItemDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item Description"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
+
+    <!-- Item Fee -->
+    <TextView
+        android:id="@+id/tvItemFee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fee: $10.00"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
+
+    <!-- Rent Period -->
+    <TextView
+        android:id="@+id/tvItemTimePeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rent Period: 1 week"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
+
+    <!-- Category -->
+    <TextView
+        android:id="@+id/tvItemCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category: Electronics"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
+
+    <!-- Optional: ImageView for Item Photo -->
+    <ImageView
+        android:id="@+id/ivItemImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_placeholder_image" />
+
+    <!-- Buttons for Edit and Delete -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <!-- Edit Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_item"
+            android:icon="@drawable/ic_edit"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:cornerRadius="4dp"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Delete Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDeleteItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_item"
+            android:icon="@drawable/ic_delete"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:cornerRadius="4dp" />
+    </LinearLayout>
+
+</LinearLayout>

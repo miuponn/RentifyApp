@@ -1,47 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    package="com.example.rentifyapp">
+
+    <!-- Permissions -->
+    <!-- Internet Permission for network operations like Firebase Firestore -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Access Network State Permission to check network connectivity -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Read External Storage Permission (if your app accesses external storage) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- Write External Storage Permission (if your app writes to external storage) -->
+    <!--
+        Note: As of Android 10 (API level 29), WRITE_EXTERNAL_STORAGE is deprecated.
+        Consider using [Scoped Storage](https://developer.android.com/about/versions/10/privacy/storage) for better privacy.
+    -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RentifyApp">
 
-        <!-- Make LoginActivity the launcher activity -->
+        <!-- Main Activity: Launcher -->
         <activity
-            android:name=".LoginActivity"
-            android:exported="true">
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.RentifyApp.NoActionBar"
+            android:exported="true"> <!-- Must be true for launcher activities -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- RegisterActivity -->
+        <!-- Item Management Activity -->
         <activity
-            android:name=".RegisterActivity"
-            android:exported="true" />
+            android:name=".activities.ItemManagementActivity"
+            android:label="@string/item_management"
+            android:theme="@style/Theme.RentifyApp.NoActionBar"
+            android:exported="false" /> <!-- Set to false unless you need external access -->
 
-        <!-- MainActivity -->
+        <!-- User Management Activity -->
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+            android:name=".activities.UserManagementActivity"
+            android:label="@string/user_management"
+            android:theme="@style/Theme.RentifyApp.NoActionBar"
+            android:exported="false" /> <!-- Set to false unless you need external access -->
 
-        <!-- Renter Dashboard Activity -->
+        <!-- Add other activities here -->
+        <!-- Example:
         <activity
-            android:name=".RenterDashboardActivity"
+            android:name=".activities.AnotherActivity"
+            android:label="@string/another_activity"
+            android:theme="@style/Theme.RentifyApp.NoActionBar"
             android:exported="false" />
-
-        <!-- Admin Dashboard Activity -->
-        <activity
-            android:name=".AdminDashboardActivity"
-            android:exported="false" />
-
-        <!-- Lessor Dashboard Activity -->
-        <activity
-            android:name=".LessorDashboardActivity"
-            android:exported="false" />
+        -->
 
     </application>
-</manifest>
 
+</manifest>

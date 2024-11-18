@@ -1,11 +1,13 @@
-package com.example.rentifyapp;
+package com.example.rentifyapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.rentifyapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,25 +38,28 @@ public class AdminDashboardActivity extends AppCompatActivity {
             finish(); // Close admin dashboard after logout
         });
 
-        // Placeholder for button actions (Users, Categories, Moderation, Analytics)
+        // Navigate to User Management
         findViewById(R.id.card_users).setOnClickListener(v -> {
-            Toast.makeText(this, "User Management clicked", Toast.LENGTH_SHORT).show();
-            // You can navigate to User Management activity here
+            Intent intent = new Intent(AdminDashboardActivity.this, UserManagementActivity.class);
+            startActivity(intent);
         });
 
+        // Navigate to Category Management
         findViewById(R.id.card_categories).setOnClickListener(v -> {
-            Toast.makeText(this, "Category Management clicked", Toast.LENGTH_SHORT).show();
-            // You can navigate to Category Management activity here
+            Intent intent = new Intent(AdminDashboardActivity.this, CategoryManagementActivity.class);
+            startActivity(intent);
         });
 
+        // Content Moderation Click Listener
         findViewById(R.id.card_moderation).setOnClickListener(v -> {
-            Toast.makeText(this, "Content Moderation clicked", Toast.LENGTH_SHORT).show();
-            // You can navigate to Content Moderation activity here
+            Toast.makeText(this, getString(R.string.content_moderation_clicked), Toast.LENGTH_SHORT).show();
+            // Implement Content Moderation Activity
         });
 
+        // Analytics Click Listener
         findViewById(R.id.card_analytics).setOnClickListener(v -> {
-            Toast.makeText(this, "Analytics clicked", Toast.LENGTH_SHORT).show();
-            // You can navigate to Analytics activity here
+            Toast.makeText(this, getString(R.string.analytics_clicked), Toast.LENGTH_SHORT).show();
+            // Implement Analytics Activity
         });
     }
 
@@ -69,16 +74,15 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
                         // Display admin's first name and role
                         if (firstName != null) {
-                            tvName.setText("Hi, " + firstName + "!");
+                            tvName.setText(getString(R.string.greeting_name, firstName));
                         }
                         if ("Admin".equals(role)) {
-                            tvGreeting.setText("Admin Dashboard");
+                            tvGreeting.setText(getString(R.string.admin_dashboard));
                         }
                     }
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error loading admin data", Toast.LENGTH_SHORT).show();
-                });
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, getString(R.string.error_loading_admin_data), Toast.LENGTH_SHORT).show()
+                );
     }
 }
-

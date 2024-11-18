@@ -1,16 +1,15 @@
-package com.example.rentifyapp;
+package com.example.rentifyapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.rentifyapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.CollectionReference;
-import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
 

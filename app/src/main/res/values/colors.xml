@@ -19,6 +19,8 @@
     <!-- Background and Surface Colors -->
     <color name="background">#FFFFFF</color>
     <color name="surface">#F5F5F5</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 
     <!-- Error Color -->
     <color name="error">#D32F2F</color>

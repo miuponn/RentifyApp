@@ -1,24 +1,20 @@
-package com.example.rentifyapp;
+package com.example.rentifyapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.rentifyapp.R;
+import com.example.rentifyapp.models.User;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.CollectionReference;
-import android.widget.EditText;
-import android.widget.Toast;
-import android.view.View;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -31,9 +27,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-
-
-        // Initialize Firebase Auth
+        // Initialize Firebase App and Auth
+        FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
 
         // Initialize UI elements
@@ -57,60 +52,79 @@ public class RegisterActivity extends AppCompatActivity {
         String confirmPassword = etConfirmPassword.getText().toString().trim();
 
         int selectedRoleId = rgRole.getCheckedRadioButtonId();
-        String role = "";
-        if (selectedRoleId == R.id.rbLessor) {
-            role = "Lessor";
-        } else if (selectedRoleId == R.id.rbRenter) {
-            role = "Renter";
+
+        // Assign 'role' using a ternary operator and declare it as final
+        final String role = (selectedRoleId == R.id.rbLessor) ? "Lessor" :
+                (selectedRoleId == R.id.rbRenter) ? "Renter" : "Unknown";
+
+        // Validate inputs
+        if (TextUtils.isEmpty(firstName)) {
+            etFirstName.setError(getString(R.string.first_name_required));
+            return;
         }
 
-        // Validate inputs (as in your current method)
+        if (TextUtils.isEmpty(lastName)) {
+            etLastName.setError(getString(R.string.last_name_required));
+            return;
+        }
+
+        if (TextUtils.isEmpty(email)) {
+            etEmail.setError(getString(R.string.email_required));
+            return;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etEmail.setError(getString(R.string.invalid_email));
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            etPassword.setError(getString(R.string.password_required));
+            return;
+        }
+
+        if (password.length() < 6) {
+            etPassword.setError(getString(R.string.password_length_error));
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            etConfirmPassword.setError(getString(R.string.passwords_do_not_match));
+            return;
+        }
+
+        if ("Unknown".equals(role)) {
+            Toast.makeText(this, getString(R.string.select_valid_role), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Register user with Firebase Auth
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        if (user != null) {
+                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                        if (firebaseUser != null) {
                             // Create a user object to store in Firestore
-                            User newUser = new User(user.getUid(), firstName, lastName, email, role);
+                            User newUser = new User(firebaseUser.getUid(), firstName, lastName, email, role);
 
                             // Store user data in Firestore
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            db.collection("users").document(user.getUid())
+                            db.collection("users").document(firebaseUser.getUid())
                                     .set(newUser)
                                     .addOnSuccessListener(aVoid -> {
-                                        Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, getString(R.string.registration_successful), Toast.LENGTH_SHORT).show();
 
                                         // Navigate to appropriate dashboard
-                                        navigateToDashboard(user);
+                                        navigateToDashboard(firebaseUser);
                                     })
                                     .addOnFailureListener(e -> {
-                                        Toast.makeText(RegisterActivity.this, "Error saving user data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, getString(R.string.error_saving_user_data) + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     });
                         }
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, getString(R.string.authentication_failed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    // User Model
-    public class User {
-        private String userId;
-        private String firstName;
-        private String lastName;
-        private String email;
-        private String role;
-
-        // Constructor
-        public User(String userId, String firstName, String lastName, String email, String role) {
-            this.userId = userId;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.email = email;
-            this.role = role;
-        }
     }
 
     private void navigateToDashboard(FirebaseUser user) {
@@ -136,22 +150,20 @@ public class RegisterActivity extends AppCompatActivity {
                                         startActivity(new Intent(RegisterActivity.this, RenterDashboardActivity.class));
                                         break;
                                     default:
-                                        Toast.makeText(RegisterActivity.this, "Unknown role: " + role, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, getString(R.string.unknown_role, role), Toast.LENGTH_SHORT).show();
                                         break;
                                 }
-                                finish(); // Close LoginActivity after navigation
+                                finish(); // Close RegisterActivity after navigation
                             } else {
-                                Toast.makeText(RegisterActivity.this, "Role not found for user", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, getString(R.string.role_not_found), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(RegisterActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, getString(R.string.user_data_not_found), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(e -> {
-                        Toast.makeText(RegisterActivity.this, "Error fetching user data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, getString(R.string.error_fetching_user_data, e.getMessage()), Toast.LENGTH_SHORT).show();
                     });
         }
     }
-
 }
-
